@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps/widgets/custom_google_map.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(title: const Text('My Flutter App')),
-
+        body: CustomGoogleMap(),
       ),
     );
   }
