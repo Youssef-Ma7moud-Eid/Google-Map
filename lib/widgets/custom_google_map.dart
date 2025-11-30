@@ -17,12 +17,7 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
       target: LatLng(29.948358, 31.141849),
       zoom: 12,
     );
-    CameraTargetBounds(
-      LatLngBounds(
-        southwest: LatLng(29.945358, 31.138849),
-        northeast: LatLng(29.951358, 31.144849),
-      ),
-    );
+
     super.initState();
   }
 
@@ -40,6 +35,13 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
           onMapCreated: (controller) {
             googleMapController = controller;
           },
+          zoomControlsEnabled: false,
+          // cameraTargetBounds: CameraTargetBounds(
+          //   LatLngBounds(
+          //     southwest: LatLng(29.945358, 31.138849),
+          //     northeast: LatLng(29.951358, 31.144849),
+          //   ),
+          // ),
           initialCameraPosition: intialCameraPosition,
         ),
         Positioned(
@@ -48,8 +50,14 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
           right: 20,
           child: ElevatedButton(
             onPressed: () {
+              initCameraStyle();
               googleMapController.animateCamera(
-                CameraUpdate.newLatLng(LatLng(40.033333, 31.233334)),
+                CameraUpdate.newCameraPosition(
+                  CameraPosition(
+                    target: LatLng(29.955358, 31.145849),
+                    zoom: 14,
+                  ),
+                ),
               );
             },
             child: Text("Change Location"),
@@ -57,6 +65,13 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
         ),
       ],
     );
+  }
+
+  void initCameraStyle() async {
+    var newStyle = await DefaultAssetBundle.of(
+      context,
+    ).loadString('assets/map-styles/retro_map_styles.json');
+    googleMapController.setMapStyle(newStyle);
   }
 }
  // Zoom level
